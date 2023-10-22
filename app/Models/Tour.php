@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Tour extends Model
 {
@@ -18,7 +19,7 @@ class Tour extends Model
         'price',
     ];
 
-    public function price()
+    public function price(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => $value / 100,
