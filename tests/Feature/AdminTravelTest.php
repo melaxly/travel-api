@@ -7,7 +7,6 @@ use App\Models\Travel;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminTravelTest extends TestCase
@@ -74,6 +73,4 @@ class AdminTravelTest extends TestCase
         $response = $this->get('/api/v1/travels');
         $response->assertJsonFragment(['name' => 'Travel name update']);
     }
-
-
 }

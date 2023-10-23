@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\Tour;
 use App\Models\Travel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class TourListTest extends TestCase
@@ -29,7 +28,7 @@ class TourListTest extends TestCase
         $travel = Travel::factory()->create();
         Tour::factory()->create([
             'travel_id' => $travel->id,
-            'price' => 123.25
+            'price' => 123.25,
         ]);
 
         $response = $this->get('/api/v1/travels/'.$travel->slug.'/tours');
@@ -117,12 +116,12 @@ class TourListTest extends TestCase
 
         $endpoint = '/api/v1/travels/'.$travel->slug.'/tours';
 
-        $response = $this->get($endpoint. '?priceFrom=100');
+        $response = $this->get($endpoint.'?priceFrom=100');
         $response->assertJsonCount(2, 'data');
         $response->assertJsonFragment(['id' => $cheapTour->id]);
         $response->assertJsonFragment(['id' => $expensiveTour->id]);
 
-        $response = $this->get($endpoint. '?priceFrom=150');
+        $response = $this->get($endpoint.'?priceFrom=150');
         $response->assertJsonCount(1, 'data');
         $response->assertJsonMissing(['id' => $cheapTour->id]);
         $response->assertJsonFragment(['id' => $expensiveTour->id]);
@@ -176,7 +175,6 @@ class TourListTest extends TestCase
         $response->assertJsonMissing(['id' => $earlierTour->id]);
         $response->assertJsonFragment(['id' => $laterTour->id]);
 
-
         $response = $this->get($endpoint.'?dateFrom='.now()->addDays(5));
         $response->assertJsonCount(0, 'data');
 
@@ -209,5 +207,4 @@ class TourListTest extends TestCase
         $response = $this->getJson('/api/v1/travels/'.$travel->slug.'/tours?priceFrom=abcd');
         $response->assertStatus(422);
     }
-
 }

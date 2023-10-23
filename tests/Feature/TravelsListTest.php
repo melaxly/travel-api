@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Models\Travel;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class TravelsListTest extends TestCase
@@ -35,5 +34,4 @@ class TravelsListTest extends TestCase
         $response->assertJsonCount(1, 'data');
         $response->assertJsonPath('data.0.name', $publicTravel->name);
     }
-
 }

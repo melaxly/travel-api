@@ -35,7 +35,7 @@ class ToursListRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'priceFrom' => "error",
+            'priceFrom' => 'error',
             'sortBy' => "The 'sortBy' parameter accepts on 'price' Value",
             'sortOrder' => "The 'sortOrder' parameter accepts only 'asc' and 'desc' value",
         ];

@@ -7,14 +7,13 @@ use App\Models\Travel;
 use App\Models\User;
 use Database\Seeders\RoleSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AdminTourTest extends TestCase
 {
     use RefreshDatabase;
 
-   public function test_public_user_cannot_access_adding_tour(): void
+    public function test_public_user_cannot_access_adding_tour(): void
     {
         $travel = Travel::factory()->create();
         $response = $this->postJson('/api/v1/admin/travels/'.$travel->id.'/tours');
@@ -24,7 +23,7 @@ class AdminTourTest extends TestCase
 
     public function test_non_admin_user_cannot_access_adding_tour(): void
     {
-        
+
         $this->seed(RoleSeeder::class);
         $user = User::factory()->create();
         $user->roles()->attach(Role::where('name', 'editor')->value('id'));
@@ -51,7 +50,7 @@ class AdminTourTest extends TestCase
             'name' => 'Tour name',
             'starting_date' => now()->toDateString(),
             'ending_date' => now()->addDays()->toDateString(),
-            'price' => 123.45
+            'price' => 123.45,
         ]);
         $response->assertStatus(201);
 
